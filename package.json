@@ -1,0 +1,17 @@
+{
+  "name": "upward-test",
+  "version": "1.0.0",
+  "description": "UPWARD Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:express": "node server-express.js"
+  },
+  "keywords": [],
+  "author": "Javier Villanueva <javiervd@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@magento/upward-js": "^2.1.0",
+    "express": "^4.16.4"
+  }
+}

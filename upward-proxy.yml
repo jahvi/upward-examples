@@ -1,0 +1,35 @@
+status: response.status # [Go to 1]
+headers: response.headers # [Go to 1]
+body: response.body # [Go to 1]
+
+# 1
+response:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/pokemon/graphql'
+      use: pokemonGQL # [Go to 2]
+    - matches: request.url.pathname
+      pattern: '^/countries/graphql'
+      use: countriesGQL # [Go to 3]
+  default: helloWorld # [Go to 4]
+
+# 2
+pokemonGQL:
+  target:
+    inline: 'https://graphql-pokemon.now.sh'
+
+# 3
+countriesGQL:
+  target:
+    inline: 'https://countries.trevorblades.com'
+
+# 4
+helloWorld:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: text/html
+    body:
+      inline: 'Hello World'

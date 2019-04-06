@@ -1,0 +1,12 @@
+<img src="{{pokemonData.image}}" /><br/>
+<strong>Name:</strong> {{pokemonData.name}}<br/>
+<strong>Type:</strong>
+{{#pokemonData.types}}
+    {{.}}
+{{/pokemonData.types}}
+<br/>
+<strong>Height:</strong>
+{{pokemonData.height.minimum}} - {{pokemonData.height.maximum}}<br/>
+<strong>Weight:</strong>
+{{pokemonData.weight.minimum}} - {{pokemonData.weight.maximum}}<br/><br/>
+<strong>{{pokemonData.classification}}</strong>

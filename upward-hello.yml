@@ -1,0 +1,7 @@
+status: 200
+headers:
+  inline:
+    content-type:
+      inline: text/html
+body:
+  inline: 'Hello World'

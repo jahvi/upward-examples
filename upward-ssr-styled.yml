@@ -1,0 +1,64 @@
+status: response.status # [Go to 1]
+headers: response.headers # [Go to 1]
+body: response.body # [Go to 1]
+
+# 1
+response:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/pokemon/graphql'
+      use: pokemonGQL # [Go to 2]
+    - matches: request.url.pathname
+      pattern: '^/countries/graphql'
+      use: countriesGQL # [Go to 3]
+    - matches: request.url.pathname
+      pattern: '^/(favicon.ico$|styles.css$)'
+      use: static # [Go to 8]
+  default: pokemon # [Go to 4]
+
+# 2
+pokemonGQL:
+  target: env.POKEMON_GRAPHQL_URL
+
+# 3
+countriesGQL:
+  target: env.COUNTRIES_GRAPHQL_URL
+
+# 4
+pokemon:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: text/html
+    body:
+      engine: mustache
+      template: './templates/pokemon.mst'
+      provide:
+        pokemonData: pokemonData # [Go to 5]
+
+# 5
+pokemonData: pokemonResult.data.pokemon # [Go to 6]
+
+# 6
+pokemonResult:
+  url: env.POKEMON_GRAPHQL_URL
+  query: './queries/getPokemonDetail.graphql'
+  variables:
+    inline:
+      pokemonName: pokemonName # [Go to 7]
+
+# 7
+pokemonName:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/(?:(.*))?'
+      use: $match.$1
+  default:
+    inline: ''
+
+# 8
+static:
+  directory:
+    inline: './static'

@@ -1,0 +1,16 @@
+query($pokemonName: String) {
+    pokemon(name: $pokemonName) {
+        name
+        image
+        types
+        weight {
+            minimum
+            maximum
+        }
+        height {
+            minimum
+            maximum
+        }
+        classification
+    }
+}
